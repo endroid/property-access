@@ -9,7 +9,7 @@ PropertyAccess
 [![License](http://img.shields.io/packagist/l/endroid/property-access.svg)](https://packagist.org/packages/endroid/property-access)
 
 Extends the Symfony PropertyAccessor with the ability to query on objects
-having a specific property (or path). An example of such a query would be
+having a specific property. An example of such a query would be
 "band.member[address.street=Abbey Road].firstName". This functionality makes
 it easier to retrieve properties without the need for looping through values.
 
