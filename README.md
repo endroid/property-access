@@ -28,10 +28,10 @@ $ composer require endroid/property-access
 
 use Endroid\PropertyAccess\PropertyAccessor;
 
-$propertyAccessor = new PropertyAccessor();
+$accessor = new PropertyAccessor();
 
 // Returns the first name of the first band member that lives on Abbey Road
-$firstName = $propertyAccessor->getValue($band, "member[address.street=Abbey Road][0].firstName");
+$firstName = $accessor->getValue($band, "member[address.street=Abbey Road][0].firstName");
 ```
 
 ## Versioning
