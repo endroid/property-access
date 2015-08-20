@@ -13,6 +13,9 @@ having a specific property. An example of such a query would be
 "band.member[address.street=Abbey Road].firstName". This functionality makes
 it easier to retrieve properties without the need for looping through values.
 
+Great advantage of this approach is the possibility of specifying conditional
+mapping via configuration instead of code.
+
 ## Installation
 
 Use [Composer](https://getcomposer.org/) to install the library.
