@@ -8,9 +8,9 @@ Property Access
 [![Total Downloads](http://img.shields.io/packagist/dt/endroid/property-access.svg)](https://packagist.org/packages/endroid/property-access)
 [![License](http://img.shields.io/packagist/l/endroid/property-access.svg)](https://packagist.org/packages/endroid/property-access)
 
-Extends the Symfony property accessor with the ability to query on objects
-having a specific property. An example of such a query would be
-"band.member[address.street=Abbey Road].firstName". This functionality makes
+Extends the Symfony property accessor with the ability to filter on objects
+using the expression language component. An example of such a query would be
+band.member[address.street=="Abbey Road"].firstName. This functionality makes
 it easier to retrieve properties without the need for looping through values.
 
 Great advantage of this approach is the possibility of specifying conditional

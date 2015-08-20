@@ -9,6 +9,7 @@
 
 namespace Endroid\PropertyAccess;
 
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor as BasePropertyAccessor;
@@ -21,11 +22,17 @@ class PropertyAccessor
     protected $accessor;
 
     /**
+     * @var ExpressionLanguage
+     */
+    protected $language;
+
+    /**
      * Creates a new instance.
      */
     public function __construct()
     {
         $this->accessor = PropertyAccess::createPropertyAccessor();
+        $this->language = new ExpressionLanguage();
     }
 
     /**
@@ -45,8 +52,8 @@ class PropertyAccessor
             if (strpos($path, '=') === false) {
                 $object = $this->accessor->getValue($object, $path);
             } else {
-                list($filterPath, $filterValue) = explode('=', trim($path, '[]'));
-                $object = $this->filter($object, $filterPath, $filterValue);
+                $expression = trim($path, '[]');
+                $object = $this->filter($object, $expression);
             }
         }
 
@@ -69,21 +76,20 @@ class PropertyAccessor
      * Returns the objects filtered by the given path value.
      *
      * @param array  $objects
-     * @param string $path
-     * @param string $value
+     * @param string $expression
      *
      * @return array
      */
-    public function filter(array $objects, $path, $value)
+    public function filter(array $objects, $expression)
     {
         $filteredObjects = array();
 
         foreach ($objects as $key => $object) {
             try {
-                if ($this->getValue($object, $path) == $value) {
+                if ($this->language->evaluate('object.'.$expression, array('object' => $object))) {
                     $filteredObjects[] = $object;
                 }
-            } catch (NoSuchPropertyException $exception) {
+            } catch (\Exception $exception) {
                 // Property does not exist: ignore this item
             }
         }
