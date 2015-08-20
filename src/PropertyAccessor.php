@@ -45,15 +45,15 @@ class PropertyAccessor
      */
     public function getValue($object, $path)
     {
-        $paths = preg_split('#(\[[^\]]+?=[^\[]+?\])#i', $path, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+        $paths = preg_split('#(\[[^\]]+?[^a-z0-9\.\]\[]+[^\[]+?\])#i', $path, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
         while (count($paths) > 0) {
             $path = array_shift($paths);
-            if (strpos($path, '=') === false) {
-                $object = $this->accessor->getValue($object, $path);
-            } else {
+            if (preg_match('#[^a-z0-9\.\]\[]+#i', $path)) {
                 $expression = trim($path, '[]');
                 $object = $this->filter($object, $expression);
+            } else {
+                $object = $this->accessor->getValue($object, $path);
             }
         }
 
