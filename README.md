@@ -1,5 +1,5 @@
-PropertyAccess
-==============
+Property Access
+===============
 
 *By [endroid](http://endroid.nl/)*
 
@@ -8,7 +8,7 @@ PropertyAccess
 [![Total Downloads](http://img.shields.io/packagist/dt/endroid/property-access.svg)](https://packagist.org/packages/endroid/property-access)
 [![License](http://img.shields.io/packagist/l/endroid/property-access.svg)](https://packagist.org/packages/endroid/property-access)
 
-Extends the Symfony PropertyAccessor with the ability to query on objects
+Extends the Symfony property accessor with the ability to query on objects
 having a specific property. An example of such a query would be
 "band.member[address.street=Abbey Road].firstName". This functionality makes
 it easier to retrieve properties without the need for looping through values.
