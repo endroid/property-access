@@ -80,7 +80,7 @@ class PropertyAccessor
 
         foreach ($objects as $key => $object) {
             try {
-                if ($this->accessor->getValue($object, $path) == $value) {
+                if ($this->getValue($object, $path) == $value) {
                     $filteredObjects[] = $object;
                 }
             } catch (NoSuchPropertyException $exception) {
