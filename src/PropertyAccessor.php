@@ -9,6 +9,7 @@
 
 namespace Endroid\PropertyAccess;
 
+use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor as BasePropertyAccessor;
 
@@ -78,8 +79,12 @@ class PropertyAccessor
         $filteredObjects = array();
 
         foreach ($objects as $key => $object) {
-            if ($this->accessor->getValue($object, $path) == $value) {
-                $filteredObjects[] = $object;
+            try {
+                if ($this->accessor->getValue($object, $path) == $value) {
+                    $filteredObjects[] = $object;
+                }
+            } catch (NoSuchPropertyException $exception) {
+                // Property does not exist: ignore this item
             }
         }
 
