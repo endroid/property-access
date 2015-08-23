@@ -10,7 +10,6 @@
 namespace Endroid\PropertyAccess;
 
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
-use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor as BasePropertyAccessor;
 
@@ -45,15 +44,22 @@ class PropertyAccessor
      */
     public function getValue($object, $path)
     {
-        $paths = preg_split('#(\[[^\]]+?[^a-z0-9\.\]\[]+[^\[]+?\])#i', $path, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+        $paths = preg_split('#(\[((?>[^\[\]]+)|(?R))*\])#i', $path, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
-        while (count($paths) > 0) {
-            $path = array_shift($paths);
+        for ($i = 0; $i < count($paths); ++$i) {
+            $path = trim($paths[$i], '.');
+            if (substr($path, 0, 1) == '[') {
+                ++$i;
+            }
             if (preg_match('#[^a-z0-9\.\]\[]+#i', $path)) {
                 $expression = trim($path, '[]');
                 $object = $this->filter($object, $expression);
             } else {
                 $object = $this->accessor->getValue($object, $path);
+            }
+
+            if ($object === null) {
+                break;
             }
         }
 
