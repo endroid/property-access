@@ -92,7 +92,7 @@ class PropertyAccessor
 
         foreach ($objects as $key => $object) {
             try {
-                if ($this->language->evaluate('object.'.$expression, array('object' => $object))) {
+                if (@$this->language->evaluate('object.'.$expression, array('object' => $object))) {
                     $filteredObjects[] = $object;
                 }
             } catch (\Exception $exception) {
