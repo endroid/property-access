@@ -6,6 +6,7 @@ Property Access
 [![Latest Stable Version](http://img.shields.io/packagist/v/endroid/property-access.svg)](https://packagist.org/packages/endroid/property-access)
 [![Build Status](http://img.shields.io/travis/endroid/PropertyAccess.svg)](http://travis-ci.org/endroid/PropertyAccess)
 [![Total Downloads](http://img.shields.io/packagist/dt/endroid/property-access.svg)](https://packagist.org/packages/endroid/property-access)
+[![Monthly Downloads](http://img.shields.io/packagist/dm/endroid/property-access.svg)](https://packagist.org/packages/endroid/property-access)
 [![License](http://img.shields.io/packagist/l/endroid/property-access.svg)](https://packagist.org/packages/endroid/property-access)
 
 Extends the Symfony property accessor with the ability to filter on objects
@@ -39,9 +40,9 @@ $firstName = $accessor->getValue($band, 'member[address.street=Abbey Road][0].fi
 
 ## Versioning
 
-Version numbers follow the MAJOR.MINOR.PATCH scheme. Backwards compatible
-changes will be kept to a minimum but be aware that these can occur. Lock
-your dependencies for production and test your code when upgrading.
+Version numbers follow the MAJOR.MINOR.PATCH scheme. Backwards compatibility
+breaking changes will be kept to a minimum but be aware that these can occur.
+Lock your dependencies for production and test your code when upgrading.
 
 ## License
 
