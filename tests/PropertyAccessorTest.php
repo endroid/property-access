@@ -85,7 +85,7 @@ class PropertyAccessorTest extends PHPUnit_Framework_TestCase
     protected function getData()
     {
         $data = new stdClass();
-        $data->subs = array();
+        $data->subs = [];
         for ($n = 0; $n < 5; ++$n) {
             $item = new stdClass();
             $item->number = $n;
