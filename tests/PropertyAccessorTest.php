@@ -24,8 +24,8 @@ class PropertyAccessorTest extends PHPUnit_Framework_TestCase
 
         $items = $this->getPropertyAccessor()->getValue($data, 'subs[number==1]');
 
-        $this->assertTrue(count($items) == 1);
-        $this->assertTrue($items[0]->number == 1);
+        $this->assertTrue(1 == count($items));
+        $this->assertTrue(1 == $items[0]->number);
     }
 
     /**
@@ -37,8 +37,8 @@ class PropertyAccessorTest extends PHPUnit_Framework_TestCase
 
         $items = $this->getPropertyAccessor()->getValue($data, 'subs[number!=1]');
 
-        $this->assertTrue(count($items) == 4);
-        $this->assertTrue($items[1]->number == 2);
+        $this->assertTrue(4 == count($items));
+        $this->assertTrue(2 == $items[1]->number);
     }
 
     /**
@@ -50,8 +50,8 @@ class PropertyAccessorTest extends PHPUnit_Framework_TestCase
 
         $items = $this->getPropertyAccessor()->getValue($data, 'subs[number>1]');
 
-        $this->assertTrue(count($items) == 3);
-        $this->assertTrue($items[0]->number == 2);
+        $this->assertTrue(3 == count($items));
+        $this->assertTrue(2 == $items[0]->number);
     }
 
     /**
@@ -63,8 +63,8 @@ class PropertyAccessorTest extends PHPUnit_Framework_TestCase
 
         $items = $this->getPropertyAccessor()->getValue($data, 'subs[number<3]');
 
-        $this->assertTrue(count($items) == 3);
-        $this->assertTrue($items[0]->number == 0);
+        $this->assertTrue(3 == count($items));
+        $this->assertTrue(0 == $items[0]->number);
     }
 
     /**

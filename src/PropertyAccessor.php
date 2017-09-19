@@ -48,7 +48,7 @@ class PropertyAccessor
 
         for ($i = 0; $i < count($paths); ++$i) {
             $path = trim($paths[$i], '.');
-            if (substr($path, 0, 1) == '[') {
+            if ('[' == substr($path, 0, 1)) {
                 ++$i;
             }
             if (preg_match('#[^a-z0-9\.\]\[]+#i', $path)) {
@@ -58,7 +58,7 @@ class PropertyAccessor
                 $object = $this->accessor->getValue($object, $path);
             }
 
-            if ($object === null) {
+            if (null === $object) {
                 break;
             }
         }
