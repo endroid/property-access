@@ -2,7 +2,7 @@
     "name": "endroid/property-access",
     "description": "Endroid Property Access",
     "keywords": ["endroid", "property", "access"],
-    "homepage": "https://github.com/endroid/PropertyAccess",
+    "homepage": "https://github.com/endroid/property-access",
     "type": "library",
     "license": "MIT",
     "authors": [
