@@ -1,7 +1,7 @@
 Property Access
 ===============
 
-*By [endroid](http://endroid.nl/)*
+*By [endroid](https://endroid.nl/)*
 
 [![Latest Stable Version](http://img.shields.io/packagist/v/endroid/property-access.svg)](https://packagist.org/packages/endroid/property-access)
 [![Build Status](http://img.shields.io/travis/endroid/PropertyAccess.svg)](http://travis-ci.org/endroid/PropertyAccess)
