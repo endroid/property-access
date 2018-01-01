@@ -3,7 +3,7 @@
 *By [endroid](https://endroid.nl/)*
 
 [![Latest Stable Version](http://img.shields.io/packagist/v/endroid/property-access.svg)](https://packagist.org/packages/endroid/property-access)
-[![Build Status](http://img.shields.io/travis/endroid/PropertyAccess.svg)](http://travis-ci.org/endroid/PropertyAccess)
+[![Build Status](http://img.shields.io/travis/endroid/property-access.svg)](http://travis-ci.org/endroid/property-access)
 [![Total Downloads](http://img.shields.io/packagist/dt/endroid/property-access.svg)](https://packagist.org/packages/endroid/property-access)
 [![Monthly Downloads](http://img.shields.io/packagist/dm/endroid/property-access.svg)](https://packagist.org/packages/endroid/property-access)
 [![License](http://img.shields.io/packagist/l/endroid/property-access.svg)](https://packagist.org/packages/endroid/property-access)
