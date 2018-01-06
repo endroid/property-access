@@ -10,10 +10,10 @@
 namespace Endroid\PropertyAccess\PropertyAccessorTest;
 
 use Endroid\PropertyAccess\PropertyAccessor;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class PropertyAccessorTest extends PHPUnit_Framework_TestCase
+class PropertyAccessorTest extends TestCase
 {
     /**
      * Check the equals operator.
