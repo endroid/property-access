@@ -46,7 +46,7 @@ class PropertyAccessor
      */
     public function getValue($object, $path)
     {
-        $paths = preg_split('#(\[((?>[^\[\]]+)|(?R))*\])#i', $path, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+        $paths = preg_split('#(\[((?>[^\[\]]+)|(?R))*\])#i', $path, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
         for ($i = 0; $i < count($paths); ++$i) {
             $path = trim($paths[$i], '.');
