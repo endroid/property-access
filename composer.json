@@ -14,8 +14,8 @@
     "require": {
         "php": ">=7.2",
         "endroid/installer": "^1.0.3",
-        "symfony/expression-language": "^3.4|^4.0",
-        "symfony/property-access": "^3.4|^4.0"
+        "symfony/expression-language": "^3.4||^4.0",
+        "symfony/property-access": "^3.4||^4.0"
     },
     "require-dev": {
         "endroid/test": "^1.1.4"
