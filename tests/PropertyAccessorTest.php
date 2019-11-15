@@ -17,9 +17,6 @@ use stdClass;
 
 class PropertyAccessorTest extends TestCase
 {
-    /**
-     * Check the equals operator.
-     */
     public function testEquals()
     {
         $data = $this->getData();
@@ -30,9 +27,6 @@ class PropertyAccessorTest extends TestCase
         $this->assertTrue(1 == $items[0]->number);
     }
 
-    /**
-     * Check the not equals operator.
-     */
     public function testNotEquals()
     {
         $data = $this->getData();
@@ -43,9 +37,6 @@ class PropertyAccessorTest extends TestCase
         $this->assertTrue(2 == $items[1]->number);
     }
 
-    /**
-     * Check the greater than operator.
-     */
     public function testGreaterThan()
     {
         $data = $this->getData();
@@ -56,9 +47,6 @@ class PropertyAccessorTest extends TestCase
         $this->assertTrue(2 == $items[0]->number);
     }
 
-    /**
-     * Check the greater than operator.
-     */
     public function testLowerThan()
     {
         $data = $this->getData();
@@ -69,22 +57,12 @@ class PropertyAccessorTest extends TestCase
         $this->assertTrue(0 == $items[0]->number);
     }
 
-    /**
-     * Returns the property accessor.
-     *
-     * @return PropertyAccessor
-     */
-    protected function getPropertyAccessor()
+    private function getPropertyAccessor()
     {
         return new PropertyAccessor();
     }
-
-    /**
-     * Returns some example data to work with.
-     *
-     * @return stdClass
-     */
-    protected function getData()
+    
+    private function getData()
     {
         $data = new stdClass();
         $data->subs = [];
