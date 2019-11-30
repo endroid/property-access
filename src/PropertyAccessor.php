@@ -83,7 +83,6 @@ class PropertyAccessor
     /**
      * Returns the objects filtered by the given path value.
      *
-     * @param array  $objects
      * @param string $expression
      *
      * @return array
