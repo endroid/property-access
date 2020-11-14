@@ -17,19 +17,9 @@ use Symfony\Component\PropertyAccess\PropertyAccessor as BasePropertyAccessor;
 
 class PropertyAccessor
 {
-    /**
-     * @var BasePropertyAccessor
-     */
-    protected $accessor;
+    protected BasePropertyAccessor $accessor;
+    protected ExpressionLanguage $language;
 
-    /**
-     * @var ExpressionLanguage
-     */
-    protected $language;
-
-    /**
-     * Creates a new instance.
-     */
     public function __construct()
     {
         $this->accessor = PropertyAccess::createPropertyAccessor();
@@ -37,14 +27,10 @@ class PropertyAccessor
     }
 
     /**
-     * Returns the value at the given path.
-     *
-     * @param mixed  $object
-     * @param string $path
-     *
+     * @param mixed $object
      * @return mixed
      */
-    public function getValue($object, $path)
+    public function getValue($object, string $path)
     {
         $paths = (array) preg_split('#(\[((?>[^\[\]]+)|(?R))*\])#i', $path, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
@@ -69,25 +55,19 @@ class PropertyAccessor
     }
 
     /**
-     * Sets the value at the given path.
-     *
-     * @param mixed  $object
-     * @param string $path
-     * @param mixed  $value
+     * @param mixed $object
+     * @param mixed $value
      */
-    public function setValue($object, $path, $value)
+    public function setValue($object, string $path, $value): void
     {
         $this->accessor->setValue($object, $path, $value);
     }
 
     /**
-     * Returns the objects filtered by the given path value.
-     *
-     * @param string $expression
-     *
-     * @return array
+     * @param array<mixed> $objects
+     * @return array<mixed>
      */
-    public function filter(array $objects, $expression)
+    public function filter(array $objects, string $expression): array
     {
         $filteredObjects = [];
 
