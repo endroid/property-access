@@ -17,8 +17,11 @@ use Symfony\Component\PropertyAccess\PropertyAccessor as BasePropertyAccessor;
 
 class PropertyAccessor
 {
-    protected BasePropertyAccessor $accessor;
-    protected ExpressionLanguage $language;
+    /** @var BasePropertyAccessor */
+    protected $accessor;
+
+    /** @var ExpressionLanguage */
+    protected $language;
 
     public function __construct()
     {
@@ -28,6 +31,7 @@ class PropertyAccessor
 
     /**
      * @param mixed $object
+     *
      * @return mixed
      */
     public function getValue($object, string $path)
@@ -65,6 +69,7 @@ class PropertyAccessor
 
     /**
      * @param array<mixed> $objects
+     *
      * @return array<mixed>
      */
     public function filter(array $objects, string $expression): array

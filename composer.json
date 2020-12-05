@@ -12,9 +12,9 @@
         }
     ],
     "require": {
-        "php": "^7.4||^8.0",
-        "symfony/expression-language": "^4.4||^5.0",
-        "symfony/property-access": "^4.4||^5.0"
+        "php": "^7.3||^8.0",
+        "symfony/expression-language": "^3.4||^4.4||^5.0",
+        "symfony/property-access": "^3.4||^4.4||^5.0"
     },
     "require-dev": {
         "endroid/quality": "dev-master"
@@ -38,7 +38,6 @@
             "dev-master": "2.x-dev"
         }
     },
-    "minimum-stability": "beta",
     "config": {
         "sort-packages": true
     }
