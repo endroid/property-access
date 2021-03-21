@@ -61,7 +61,7 @@ class PropertyAccessorTest extends TestCase
     {
         return new PropertyAccessor();
     }
-    
+
     private function getData()
     {
         $data = new stdClass();
