@@ -2,18 +2,10 @@
 
 declare(strict_types=1);
 
-/*
- * (c) Jeroen van den Enden <info@endroid.nl>
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
 namespace Endroid\PropertyAccess\PropertyAccessorTest;
 
 use Endroid\PropertyAccess\PropertyAccessor;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 class PropertyAccessorTest extends TestCase
 {
@@ -64,10 +56,10 @@ class PropertyAccessorTest extends TestCase
 
     private function getData()
     {
-        $data = new stdClass();
+        $data = new \stdClass();
         $data->subs = [];
         for ($n = 0; $n < 5; ++$n) {
-            $item = new stdClass();
+            $item = new \stdClass();
             $item->number = $n;
             $data->subs[] = $item;
         }

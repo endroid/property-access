@@ -2,26 +2,16 @@
 
 declare(strict_types=1);
 
-/*
- * (c) Jeroen van den Enden <info@endroid.nl>
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
 namespace Endroid\PropertyAccess;
 
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor as BasePropertyAccessor;
 
-class PropertyAccessor
+final class PropertyAccessor
 {
-    /** @var BasePropertyAccessor */
-    protected $accessor;
-
-    /** @var ExpressionLanguage */
-    protected $language;
+    private BasePropertyAccessor $accessor;
+    private ExpressionLanguage $language;
 
     public function __construct()
     {
