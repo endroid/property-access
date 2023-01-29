@@ -7,8 +7,10 @@ namespace Endroid\PropertyAccess;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor as BasePropertyAccessor;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Component\PropertyAccess\PropertyPathInterface;
 
-final class PropertyAccessor
+final class PropertyAccessor implements PropertyAccessorInterface
 {
     private BasePropertyAccessor $accessor;
     private ExpressionLanguage $language;
@@ -19,54 +21,50 @@ final class PropertyAccessor
         $this->language = new ExpressionLanguage();
     }
 
-    /**
-     * @param mixed $object
-     *
-     * @return mixed
-     */
-    public function getValue($object, string $path)
+    /** @param object|array<mixed> $objectOrArray */
+    public function getValue(object|array $objectOrArray, PropertyPathInterface|string $propertyPath): mixed
     {
-        $paths = (array) preg_split('#(\[((?>[^\[\]]+)|(?R))*\])#i', $path, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+        $paths = (array) preg_split('#(\[((?>[^\[\]]+)|(?R))*\])#i', strval($propertyPath), -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
         for ($i = 0; $i < count($paths); ++$i) {
-            $path = trim((string) $paths[$i], '.');
+            $path = trim(strval($paths[$i]), '.');
             if ('[' == substr($path, 0, 1)) {
                 ++$i;
             }
             if (preg_match('#[^a-z0-9\.\]\[]+#i', $path)) {
                 $expression = trim($path, '[]');
-                $object = $this->filter($object, $expression);
+                if (!is_array($objectOrArray)) {
+                    throw new \Exception('Filtering is only supported for arrays');
+                }
+                $objectOrArray = $this->filter($objectOrArray, $expression);
             } else {
-                $object = $this->accessor->getValue($object, $path);
+                $objectOrArray = $this->accessor->getValue($objectOrArray, $path);
             }
 
-            if (null === $object) {
+            if (null === $objectOrArray) {
                 break;
             }
         }
 
-        return $object;
+        return $objectOrArray;
     }
 
-    /**
-     * @param mixed $object
-     * @param mixed $value
-     */
-    public function setValue($object, string $path, $value): void
+    /** @param object|array<mixed> $objectOrArray */
+    public function setValue(object|array &$objectOrArray, PropertyPathInterface|string $propertyPath, mixed $value): void
     {
-        $this->accessor->setValue($object, $path, $value);
+        $this->accessor->setValue($objectOrArray, $propertyPath, $value);
     }
 
     /**
-     * @param array<mixed> $objects
+     * @param array<mixed> $objectOrArray
      *
      * @return array<mixed>
      */
-    public function filter(array $objects, string $expression): array
+    public function filter(array &$objectOrArray, string $expression): array
     {
         $filteredObjects = [];
 
-        foreach ($objects as $key => $object) {
+        foreach ($objectOrArray as $object) {
             try {
                 if (@$this->language->evaluate('object.'.$expression, ['object' => $object])) {
                     $filteredObjects[] = $object;
@@ -77,5 +75,17 @@ final class PropertyAccessor
         }
 
         return $filteredObjects;
+    }
+
+    /** @param object|array<mixed> $objectOrArray */
+    public function isWritable(object|array $objectOrArray, PropertyPathInterface|string $propertyPath): bool
+    {
+        return $this->accessor->isWritable($objectOrArray, $propertyPath);
+    }
+
+    /** @param object|array<mixed> $objectOrArray */
+    public function isReadable(object|array $objectOrArray, PropertyPathInterface|string $propertyPath): bool
+    {
+        return $this->accessor->isReadable($objectOrArray, $propertyPath);
     }
 }
