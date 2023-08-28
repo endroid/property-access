@@ -27,7 +27,7 @@ final class PropertyAccessor implements PropertyAccessorInterface
 
         for ($i = 0; $i < count($paths); ++$i) {
             $path = trim(strval($paths[$i]), '.');
-            if ('[' == substr($path, 0, 1)) {
+            if (str_starts_with($path, '[')) {
                 ++$i;
             }
             if (preg_match('#[^a-z0-9\.\]\[]+#i', $path)) {
