@@ -13,12 +13,11 @@ use Symfony\Component\PropertyAccess\PropertyPathInterface;
 final class PropertyAccessor implements PropertyAccessorInterface
 {
     private BasePropertyAccessor $accessor;
-    private ExpressionLanguage $language;
 
-    public function __construct()
-    {
+    public function __construct(
+        private readonly ExpressionLanguage $language = new ExpressionLanguage()
+    ) {
         $this->accessor = PropertyAccess::createPropertyAccessor();
-        $this->language = new ExpressionLanguage();
     }
 
     /** @param object|array<mixed> $objectOrArray */
