@@ -12,7 +12,7 @@ use Symfony\Component\PropertyAccess\PropertyPathInterface;
 
 final class PropertyAccessor implements PropertyAccessorInterface
 {
-    private BasePropertyAccessor $accessor;
+    private readonly BasePropertyAccessor $accessor;
 
     public function __construct(
         private readonly ExpressionLanguage $language = new ExpressionLanguage()
