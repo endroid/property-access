@@ -17,7 +17,7 @@
         "symfony/property-access": "^6.4||^7.0"
     },
     "require-dev": {
-        "endroid/quality": "dev-master"
+        "endroid/quality": "dev-main"
     },
     "suggest": {
         "roave/security-advisories": "Avoids installation of package versions with vulnerabilities"
@@ -34,7 +34,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.x-dev"
+            "dev-main": "2.x-dev"
         }
     },
     "config": {
