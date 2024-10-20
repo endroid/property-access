@@ -10,12 +10,12 @@ use Symfony\Component\PropertyAccess\PropertyAccessor as BasePropertyAccessor;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyAccess\PropertyPathInterface;
 
-final class PropertyAccessor implements PropertyAccessorInterface
+final readonly class PropertyAccessor implements PropertyAccessorInterface
 {
-    private readonly BasePropertyAccessor $accessor;
+    private BasePropertyAccessor $accessor;
 
     public function __construct(
-        private readonly ExpressionLanguage $language = new ExpressionLanguage()
+        private ExpressionLanguage $language = new ExpressionLanguage(),
     ) {
         $this->accessor = PropertyAccess::createPropertyAccessor();
     }
