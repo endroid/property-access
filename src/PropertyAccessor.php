@@ -21,22 +21,35 @@ final readonly class PropertyAccessor implements PropertyAccessorInterface
     }
 
     /** @param object|array<mixed> $objectOrArray */
+    #[\Override]
     public function getValue(object|array $objectOrArray, PropertyPathInterface|string $propertyPath): mixed
     {
-        $paths = (array) preg_split('#(\[((?>[^\[\]]+)|(?R))*\])#i', strval($propertyPath), -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+        $paths = (array) preg_split(
+            '#(\[((?>[^\[\]]+)|(?R))*\])#i',
+            strval($propertyPath),
+            -1,
+            PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE,
+        );
 
         for ($i = 0; $i < count($paths); ++$i) {
-            $path = trim(strval($paths[$i]), '.');
+            $path = trim(strval($paths[$i] ?? ''), characters: '.');
             if (str_starts_with($path, '[')) {
                 ++$i;
             }
-            if (preg_match('#[^a-z0-9\.\]\[]+#i', $path)) {
-                $expression = trim($path, '[]');
+            $isExpression = preg_match('#[^a-z0-9\.\]\[]+#i', $path);
+            if ($isExpression) {
+                $expression = trim($path, characters: '[]');
                 if (!is_array($objectOrArray)) {
                     throw new \Exception('Filtering is only supported for arrays');
                 }
-                $objectOrArray = $this->filter($objectOrArray, $expression);
-            } else {
+                $items = $objectOrArray;
+                $objectOrArray = $this->filter($items, $expression);
+            }
+            if (!$isExpression) {
+                if (!is_array($objectOrArray) && !is_object($objectOrArray)) {
+                    throw new \TypeError('Property access requires an object or array');
+                }
+                /** @var mixed $objectOrArray Property reads can return any value, including scalar leaves. */
                 $objectOrArray = $this->accessor->getValue($objectOrArray, $path);
             }
 
@@ -48,16 +61,25 @@ final readonly class PropertyAccessor implements PropertyAccessorInterface
         return $objectOrArray;
     }
 
-    /** @param object|array<mixed> $objectOrArray */
-    public function setValue(object|array &$objectOrArray, PropertyPathInterface|string $propertyPath, mixed $value): void
-    {
+    /**
+     * @template T of object|array<mixed>
+     * @param T $objectOrArray
+     * @param-out ($objectOrArray is array ? array<mixed> : T) $objectOrArray
+     */
+    #[\Override]
+    public function setValue(
+        object|array &$objectOrArray,
+        PropertyPathInterface|string $propertyPath,
+        mixed $value,
+    ): void {
         $this->accessor->setValue($objectOrArray, $propertyPath, $value);
     }
 
     /**
-     * @param array<mixed> $objectOrArray
+     * @template T
+     * @param array<T> $objectOrArray
      *
-     * @return array<mixed>
+     * @return list<T>
      */
     public function filter(array &$objectOrArray, string $expression): array
     {
@@ -65,11 +87,12 @@ final readonly class PropertyAccessor implements PropertyAccessorInterface
 
         foreach ($objectOrArray as $object) {
             try {
-                if (@$this->language->evaluate('object.'.$expression, ['object' => $object])) {
+                if (@$this->language->evaluate('object.' . $expression, ['object' => $object])) {
                     $filteredObjects[] = $object;
                 }
             } catch (\Exception $exception) {
                 // Property does not exist: ignore this item
+                continue;
             }
         }
 
@@ -77,12 +100,14 @@ final readonly class PropertyAccessor implements PropertyAccessorInterface
     }
 
     /** @param object|array<mixed> $objectOrArray */
+    #[\Override]
     public function isWritable(object|array $objectOrArray, PropertyPathInterface|string $propertyPath): bool
     {
         return $this->accessor->isWritable($objectOrArray, $propertyPath);
     }
 
     /** @param object|array<mixed> $objectOrArray */
+    #[\Override]
     public function isReadable(object|array $objectOrArray, PropertyPathInterface|string $propertyPath): bool
     {
         return $this->accessor->isReadable($objectOrArray, $propertyPath);
